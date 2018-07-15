@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using System.Diagnostics;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -26,6 +28,18 @@ namespace Middleware
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.Use(async (ctx, next) =>
+            {
+                DateTime startTime = DateTime.Now;
+                Console.WriteLine($"--- Start: {startTime.ToLongTimeString()}");
+                Stopwatch sw = Stopwatch.StartNew();
+
+                await next();
+                
+                sw.Stop();
+                Console.WriteLine($"--- Duration: {sw.ElapsedMilliseconds}");
+            });
 
             app.UseMvc();
         }
