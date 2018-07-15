@@ -30,7 +30,7 @@ namespace Middleware
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMiddleware<TimeLogger>();
+            app.UseTimeLoggerMiddleware();
 
             app.UseMvc();
         }

@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 
 namespace Middleware.Middlewares
@@ -23,6 +24,14 @@ namespace Middleware.Middlewares
         
             sw.Stop();
             Console.WriteLine($"--- Duration: {sw.ElapsedMilliseconds}");
+        }
+    }
+
+    public static class TimeLoggerMiddlewareExtensions
+    {        
+        public static IApplicationBuilder UseTimeLoggerMiddleware(this IApplicationBuilder builder)
+        {
+            return builder.UseMiddleware<TimeLogger>();
         }
     }
 }
