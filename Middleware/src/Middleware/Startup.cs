@@ -32,6 +32,8 @@ namespace Middleware
 
             app.UseTimeLoggerMiddleware();
 
+            app.UseSimpleAuthoriserMiddleware("kulcs");
+
             app.UseMvc();
         }
     }
