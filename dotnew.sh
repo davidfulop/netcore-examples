@@ -12,16 +12,31 @@ function create_test_project {
     dotnet remove package MSTest.TestAdapter
     dotnet add package NUnit
     dotnet add package NUnit3TestAdapter
-    if [ ADD_PROJ_REF == true ]
-    then
+    if [ ADD_PROJ_REF == true ]; then
         dotnet add reference "../../src/$PROJNAME/$PROJNAME.csproj"
     fi
     cd ..
 }
 
+# declare globals
 PROJNAME=$1
-mkdir "$PROJNAME"
-cd "$PROJNAME"
+CREATE_ROOT="true"
+
+# parse options
+for i in "$@"
+do
+case $i in
+    -r=*|--create-root-dir=*)
+    CREATE_ROOT="${i#*=}"
+    shift
+    ;;
+esac
+done
+
+if [ $CREATE_ROOT == "true" ]; then
+    mkdir "$PROJNAME"
+    cd "$PROJNAME"
+fi
 
 mkdir "src"
 cd "src"
