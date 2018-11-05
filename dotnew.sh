@@ -30,6 +30,10 @@ case $i in
     CREATE_ROOT="${i#*=}"
     shift
     ;;
+    *)
+        echo "Unknown option!"
+        exit 1
+    ;;
 esac
 done
 
